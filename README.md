@@ -44,6 +44,8 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
+Link to imgur video: https://imgur.com/a/eGbQYem 
+
 ## Notes
 
 Describe any challenges encountered while building the app.
