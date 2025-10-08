@@ -1,0 +1,160 @@
+/* Base layout */
+:root {
+  color-scheme: light;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.page {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #0f172a;
+}
+
+.container {
+  width: min(900px, 94vw);
+  padding: 2rem;
+  text-align: center;
+}
+
+.header { margin-bottom: 1rem; }
+.header h1 { margin: 0 0 .25rem; font-size: 2rem; }
+.muted { margin: .25rem 0; color: #475569; }
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Controls */
+.nav-row {
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  padding: .6rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* Guess UI */
+.guess-row {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.guess-label {
+  font-weight: 600;
+  color: #334155;
+}
+
+.guess-input {
+  min-width: 260px;
+  padding: .55rem .75rem;
+  border-radius: 10px;
+  border: 2px solid #cbd5e1;
+  outline: none;
+  font-size: 1rem;
+  background: #fff;
+}
+.guess-input:focus { border-color: #64748b; }
+.guess-input.ok { border-color: #16a34a; }       /* green */
+.guess-input.bad { border-color: #dc2626; }      /* red */
+
+.submit-btn { font-weight: 700; }
+
+/* Feedback text */
+.feedback { margin: .25rem 0 0; font-weight: 700; }
+.feedback.ok { color: #16a34a; }
+.feedback.bad { color: #dc2626; }
+
+/* === Flip Card === */
+.flip-scene {
+  perspective: 1000px;
+  display: grid;
+  place-items: center;
+}
+
+.flip-card {
+  position: relative;
+  width: 340px;
+  min-height: 200px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: transparent;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 10px 15px -3px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(.2,.8,.2,1),
+              box-shadow 200ms ease;
+}
+
+/* Visual feedback on the card frame */
+.flip-card.is-correct { box-shadow: 0 0 0 3px rgba(22,163,74,.35); }
+.flip-card.is-incorrect { box-shadow: 0 0 0 3px rgba(220,38,38,.35); }
+
+.flip-card.is-flipped { transform: rotateY(180deg); }
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;   /* stack text + image */
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 16px;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  background: #fff;
+  backface-visibility: hidden;
+  text-align: center;
+}
+
+.card-back { transform: rotateY(180deg); }
+
+.card-img {
+  margin-top: .5rem;
+  max-width: 90%;
+  max-height: 140px;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Shake animation on wrong answer */
+.shake-wrap { animation: shake .28s linear; }
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+
+/* Motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .flip-card { transition: none; }
+  .flip-card.is-flipped { transform: none; }
+  .card-back { transform: none; }
+  .shake-wrap { animation: none; }
+}
